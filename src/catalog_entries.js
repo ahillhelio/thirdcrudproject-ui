@@ -20,6 +20,13 @@ class Entry extends Component { //do I need to do anything special to retrieve A
             .then(data => this.setState( {entry : data, isCreate: true } ));
         };
 
+        updateEntry = (entry) => {
+            this.setState({
+                updateEntry: entry,
+                isCreate: false,
+            })
+        };
+
         deleteEntry = (id) => {
             fetch(`${process.env.REACT_APP_API_URL}/api/catalog_entries/${id}`, {
                 method: 'DELETE'
@@ -32,8 +39,9 @@ class Entry extends Component { //do I need to do anything special to retrieve A
         renderForm = () => {
             let result;
             if (this.state.isCreate){
-                result(<EntryForm key="createForm" refresh={this.getEntry} />);
+                result = (<EntryForm key="createForm" refresh={this.getEntry} />);
             }else{
+                result = <EntryForm/>
                 const data = this.state.updateEntry;
                 result= <EntryUpdate key={data._id} entry={data} refresh={this.getEntry}/>;
             }
@@ -45,18 +53,38 @@ class Entry extends Component { //do I need to do anything special to retrieve A
         };
 
         render(){ 
+            console.log(this.state.entry)
             const displayEntry = this.state.entry.map((entry) => {
 
                 const entrySource = entry.sources.map((source) => {
-                    return (<div>{source.displayName}, {source.link}</div>)
-                    })
-                return (<div>{entry.name}, {entry.definition} {entrySource}</div> )
-            })            
+                        return (<div>
+                                Display Name: {source.displayName} 
+                                <br></br>
+                                Link: {source.link}
+                        </div>)
+                })
+                    return (<div>
+                        Entry: {entry.name}
+                        <br></br>
+                        Definition: {entry.definition}  
+                        <br></br>
+                        {entrySource}
+                        <DeleteEntry entry={entry} 
+                        deleteEntry={this.deleteEntry}
+                        updateEntry={this.updateEntry} //NEEDS TO BE ADDED
+                        />
+                    </div> 
+                    )
+            
+            })      
+
             console.log(this.state.entry);
             return (
                 <>
-                <h3>ENTRIES</h3>
-                {displayEntry}
+                <h2>ENTRIES</h2>
+                {this.renderForm()}
+                {displayEntry} 
+                
                 </>
             )
         }            
