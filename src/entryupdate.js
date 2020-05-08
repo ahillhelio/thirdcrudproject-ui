@@ -1,11 +1,11 @@
 import React from 'react';
 
 class EntryUpdate extends React.Component {
-    state = { // what to do to get displayName and link under the umbrella of "source"?
+    state = { 
         name: this.props.entry.name,
         definition: this.props.entry.definition,
         //WHAT ABOUT THESE TWO BELOW? .sources?
-        displayName: this.props.entry.displayName,
+        displayName: this.props.entry.sources.displayName,
         link:this.props.entry.link
     }
 
@@ -50,20 +50,20 @@ class EntryUpdate extends React.Component {
                     name="name" 
                     type="text"
                     value={this.state.name}
-                    placeholder= "Updated Entry Name "
+                    //placeholder= "Updated Entry Name "
                     onChange={this.handleChange}/>
                 
                 <input 
                     name="definition" 
                     type="text"
                     value={this.state.definition}
-                    placeholder= "Update Definition"
+                    //placeholder= "Update Definition"
                     onChange={this.handleChange}/>
             
                 <input 
                     name="displayName" 
                     type="text"
-                    value={this.state.displayName}
+                    value={this.state.displayName} //WHAT NEEDS TO BE CHANGED? 
                     placeholder= "Update Display Name"
                     onChange={this.handleChange}/>
                
