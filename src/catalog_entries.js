@@ -60,7 +60,9 @@ class Entry extends Component { //do I need to do anything special to retrieve A
                         return (<div>
                                 Display Name: {source.displayName} 
                                 <br></br>
-                                Link: {source.link}
+                                {/* Link: {source.link}  */}
+                                <a href={source.link}> Link to Resource </a>
+                                {/* //HTH Do I add an anchor tag? */}
                         </div>)
                 })
                     return (<div>
